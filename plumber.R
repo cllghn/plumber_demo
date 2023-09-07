@@ -14,10 +14,9 @@ library(gapminder)
 #* @param msg The message to echo
 #* @get /echo
 function(msg = "") {
-    phrases <-  c("that guinea pig souls are the same as ours, they are just in tiny bodies.",
-                  "that timesheets were due yesterday and today.",
-                  "that Matt's birthday was last Saturday and we did not sing him happy birthday, should we do it now?",
-                  "that tomorrow we only work half day!",
+    phrases <-  c("that guinea pig souls are the same as ours, they are just in tiny bodies (Martha).",
+                  "that you should not use 'final' to version control your documents (e.g., 'finalfinal_v2_final'). This is, an abomination.",
+                  "that this is Maeve's third day as an RCA.",
                   "that you are the best! Slay!"
                 )
     baseline <- "No message provided, just a reminder %s"
@@ -42,8 +41,12 @@ function() {
 #* @get /gapminder
 function(country = "") {
     if (nchar(country) == 0) {
-        gapminder
+        res <- gapminder
     } else {
-        gapminder[gapminder$country == country, ]
+        res <- gapminder[gapminder$country == country, ]
     }
+    out <- list('country_input' = country,
+                'apiendpoint' = '/gapminder',
+                'data' = res)
+    out
 }
